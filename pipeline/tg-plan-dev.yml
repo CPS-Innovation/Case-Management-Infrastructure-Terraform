@@ -1,0 +1,32 @@
+---
+trigger:
+  branches:
+    exclude:
+    - main
+  # The following is set manually via the ADO UI as it isn't working for a yet unknown reason
+  # paths:
+  #   include:
+  #   - environments/dev
+
+pr: none
+
+pool: 'LaCC Pre-Prod Build Agents'
+
+jobs:
+  - template: templates/terragrunt_plan.yml
+    parameters:
+      environment: dev
+      module: applications
+      subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
+      backend_storage_resource_group: "rg-casemgmt-devops-preprod"
+      backend_storage_account_name: "sacasemgmttfstatedev"
+      application_name: "applications"
+
+  - template: templates/terragrunt_plan.yml
+    parameters:
+      environment: dev
+      module: base
+      subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
+      backend_storage_resource_group: "rg-casemgmt-devops-preprod"
+      backend_storage_account_name: "sacasemgmttfstatedev"
+      application_name: "base"
