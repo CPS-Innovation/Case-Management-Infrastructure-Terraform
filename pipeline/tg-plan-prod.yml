@@ -10,7 +10,7 @@
 
 # pr: none
 
-# pool: 'Case Mgmt Prod Pool'
+# pool: 'CM Prod Pool'
 
 # jobs:
 #   - template: templates/terragrunt_plan.yml
@@ -18,7 +18,7 @@
 #       environment: prod
 #       module: applications
 #       subscription: "Azure Pipeline: Case Management - Prod" #service principal
-#       backend_storage_resource_group: "rg-cm-devops-preprod-prod"
+#       backend_storage_resource_group: "rg-cm-devops-prod"
 #       backend_storage_account_name: "sacmtfstateprod"
 #       application_name: "applications"
 
@@ -27,6 +27,6 @@
 #       environment: prod
 #       module: base
 #       subscription: "Azure Pipeline: Case Management - Prod" #service principal
-#       backend_storage_resource_group: "rg-cm-devops-preprod-prod"
+#       backend_storage_resource_group: "rg-cm-devops-prod"
 #       backend_storage_account_name: "sacmtfstateprod"
 #       application_name: "base"

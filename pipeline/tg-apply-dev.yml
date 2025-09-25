@@ -9,17 +9,17 @@ trigger:
 
 pr: none
 
-pool: 'Case Mgmt PreProd Pool'
+pool: 'CM PreProd Pool'
 
 jobs:
-  - template: templates/terragrunt_apply.yml
-    parameters:
-      environment: dev
-      module: applications
-      subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
-      backend_storage_resource_group: "rg-cm-devops-preprod"
-      backend_storage_account_name: "sacmtfstatedev"
-      application_name: "applications"
+  # - template: templates/terragrunt_apply.yml
+  #   parameters:
+  #     environment: dev
+  #     module: applications
+  #     subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
+  #     backend_storage_resource_group: "rg-cm-devops-preprod"
+  #     backend_storage_account_name: "sacmtfstatedev"
+  #     application_name: "applications"
 
   - template: templates/terragrunt_apply.yml
     parameters:
