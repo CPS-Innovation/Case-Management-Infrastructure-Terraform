@@ -1,5 +1,5 @@
 resource "azurerm_log_analytics_workspace" "law" {
-  name                       = "log-analytics-djb-${var.environment}"
+  name                       = "log-analytics-${var.project_acronym}-${var.environment}"
   location                   = var.location
   resource_group_name        = var.rg_name
   sku                        = "PerGB2018"

@@ -1,5 +1,5 @@
 resource "azurerm_application_insights" "ai" {
-  name                       = "ai-djb-${var.environment}"
+  name                       = "ai-${var.project_acronym}-${var.environment}"
   location                   = var.location
   resource_group_name        = var.rg_name
   application_type           = "web"
