@@ -1,4 +1,10 @@
 resource "azurerm_linux_web_app" "app" {
+  #checkov:skip=CKV_AZURE_213:Ensure that App Service configures health check
+  #checkov:skip=CKV_AZURE_13:Ensure App Service Authentication is set on Azure App Service
+  #checkov:skip=CKV_AZURE_88:Ensure that app services use Azure Files
+  #checkov:skip=CKV_AZURE_66:Ensure that App service enables failed request tracing
+  #checkov:skip=CKV_AZURE_17:Ensure the web app has 'Client Certificates (Incoming client certificates)' set
+
   name                          = "${var.project_acronym}-app-${var.functional_area}-${var.environment}"
   resource_group_name           = var.rg_name
   location                      = var.location

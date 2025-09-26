@@ -38,3 +38,21 @@ variable "private_endpoints" {
   type        = map(string)
   description = "A map of subresource names to their respective private dns zone ids. E.g. { blob = azurerm_private_dns_zone.blob.id }"
 }
+
+variable "shared_key_access_enabled" {
+  type        = bool
+  description = "Is shared access key authorization enabled for the storage account?"
+  default     = false
+}
+
+variable "blob_delete_retention" {
+  type = object({
+    days                     = number
+    permanent_delete_enabled = bool
+  })
+  description = "The delete retention policy for the storage account"
+  default = {
+    days                     = 3
+    permanent_delete_enabled = true
+  }
+}
