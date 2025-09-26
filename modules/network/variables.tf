@@ -43,28 +43,24 @@ variable "create_nsg" {
 variable "subscription_env" {
   type        = string
   description = "The subscription environment, e.g 'prod' or 'preprod'. Must be defined when var.create_nsg = true."
-  nullable    = true
   default     = null
 }
 
 variable "location" {
   type        = string
   description = "The location of the virtual network. Must be defined when var.create_nsg = true."
-  nullable    = true
   default     = null
 }
 
 variable "project_acronym" {
   type        = string
   description = "The abbreviated project name. Must be defined when var.create_nsg = true."
-  nullable    = true
   default     = null
 }
 
 variable "nsg_id" {
   type        = string
   description = "The resource ID of an existing NSG. Must be defined when var.create_nsg = false."
-  nullable    = true
   default     = null
 }
 
