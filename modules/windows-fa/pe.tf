@@ -40,5 +40,5 @@ resource "azurerm_private_endpoint" "fa_slot" {
 
   tags = var.tags
 
-  depends_on = [azurerm_windows_function_app_slot.fa_slot]
+  depends_on = [azurerm_windows_function_app_slot.fa_slot[0]]
 }

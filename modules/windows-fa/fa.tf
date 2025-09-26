@@ -1,5 +1,5 @@
 resource "azurerm_windows_function_app" "fa" {
-  name                          = "fa-${var.project_acronym}-${var.fa_name}-${var.environment}"
+  name                          = "fa-${var.project_acronym}-${var.functional_area}-${var.environment}"
   resource_group_name           = var.rg_name
   location                      = var.location
   storage_account_name          = var.sa_name
@@ -12,10 +12,11 @@ resource "azurerm_windows_function_app" "fa" {
   client_certificate_mode       = "Required"
 
   site_config {
-    vnet_route_all_enabled                 = true
     application_insights_connection_string = var.ai_connection_string
-    ftps_state                             = "FtpsOnly"
     always_on                              = var.always_on
+    http2_enabled                          = true
+    vnet_route_all_enabled                 = true
+    ftps_state                             = "FtpsOnly"
     elastic_instance_minimum               = var.fa_elastic_instance_minimum
     worker_count                           = var.fa_worker_count
     app_scale_limit                        = var.app_scale_limit

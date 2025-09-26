@@ -52,9 +52,9 @@ variable "asp_zone_balancing_enabled" {
   default     = false
 }
 
-variable "fa_name" {
+variable "functional_area" {
   type        = string
-  description = "The unique name of the function app. E.g main-api."
+  description = "The functional area / subsystem / workload of the function app. E.g 'api'."
 }
 
 variable "fa_elastic_instance_minimum" {
