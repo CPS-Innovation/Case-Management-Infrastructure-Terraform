@@ -9,7 +9,7 @@
 
 # pr: none
 
-# pool: 'Case Mgmt Prod Pool'
+# pool: 'CM Prod Pool'
 
 # jobs:
 #   - template: templates/terragrunt_apply.yml

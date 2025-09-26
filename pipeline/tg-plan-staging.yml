@@ -10,7 +10,7 @@
 
 # pr: none
 
-# pool: 'Case Mgmt PreProd Pool'
+# pool: 'CM PreProd Pool'
 
 # jobs:
 #   - template: templates/terragrunt_plan.yml
