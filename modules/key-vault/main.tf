@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "kv" {
-  name                        = var.kv_name
+  name                        = "kv-${var.project_acronym}-${var.environment}"
   location                    = var.location
   resource_group_name         = var.rg_name
   enabled_for_disk_encryption = true
@@ -10,7 +10,7 @@ resource "azurerm_key_vault" "kv" {
 
   public_network_access_enabled = false
 
-  sku_name = var.kv_sku
+  sku_name = lower(var.kv_sku)
 
   network_acls {
     bypass         = "AzureServices"

@@ -3,9 +3,14 @@ variable "tags" {
   description = "A map of tag names to values."
 }
 
-variable "location" {
+variable "project_acronym" {
   type        = string
-  description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created"
+  description = "The abbreviated project name."
+}
+
+variable "environment" {
+  type        = string
+  description = "The deployment environment."
 }
 
 variable "rg_name" {
@@ -13,9 +18,9 @@ variable "rg_name" {
   description = "The name of the resource group in which to create the resource."
 }
 
-variable "kv_name" {
+variable "location" {
   type        = string
-  description = "The name of the key vault."
+  description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created"
 }
 
 variable "kv_sku" {
