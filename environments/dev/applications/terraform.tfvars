@@ -1,0 +1,5 @@
+environment     = "dev"
+location        = "UK South"
+project_acronym = "cm"
+vnet_rg         = "RG-Connectivity"
+vnet_name       = "VNET-UKS-CaseManagment-PreProd"

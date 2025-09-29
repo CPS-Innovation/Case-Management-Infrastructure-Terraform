@@ -8,7 +8,7 @@ resource "azurerm_linux_web_app" "app" {
   name                          = "${var.project_acronym}-app-${var.functional_area}-${var.environment}"
   resource_group_name           = var.rg_name
   location                      = var.location
-  service_plan_id               = var.create_asp ? azurerm_service_plan.asp[0].id : var.asp_id
+  service_plan_id               = var.asp_id
   virtual_network_subnet_id     = var.vnet_subnet_id
   public_network_access_enabled = false
   https_only                    = true

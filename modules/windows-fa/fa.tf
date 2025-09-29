@@ -4,7 +4,7 @@ resource "azurerm_windows_function_app" "fa" {
   location                      = var.location
   storage_account_name          = var.sa_name
   storage_uses_managed_identity = true
-  service_plan_id               = var.create_asp ? azurerm_service_plan.asp[0].id : var.asp_id
+  service_plan_id               = var.asp_id
   virtual_network_subnet_id     = var.vnet_subnet_id
   public_network_access_enabled = false
   builtin_logging_enabled       = false
