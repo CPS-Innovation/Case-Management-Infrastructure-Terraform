@@ -22,7 +22,11 @@ module "fa_main" {
     "Storage Table Data Contributor"
   ]
 
+<<<<<<< HEAD
   kv_id = module.kv.kv_id
+=======
+  kv_id = module.kv.kv_name
+>>>>>>> aa3af42 (add app layer)
 
   cors_allowed_origins = [
     "https://${module.ui_spa.default_hostname}",
@@ -30,5 +34,9 @@ module "fa_main" {
   ]
 
   pe_subnet_id         = local.pe_subnet_id
+<<<<<<< HEAD
   private_dns_zone_ids = [data.azurerm_private_dns_zone.dns["sites"].id]
+=======
+  private_dns_zone_ids = data.azurerm_private_dns_zone.dns["sites"].id
+>>>>>>> aa3af42 (add app layer)
 }
