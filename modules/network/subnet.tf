@@ -21,7 +21,7 @@ resource "azurerm_subnet" "subnets" {
   }
 }
 
-resource "azurerm_subnet_network_security_group_association" "snet_nsg" {
+resource "azurerm_subnet_network_security_group_association" "nsg" {
   for_each = var.subnets
 
   subnet_id                 = azurerm_subnet.subnets[each.key].id
@@ -32,7 +32,7 @@ resource "azurerm_subnet_network_security_group_association" "snet_nsg" {
   ]
 }
 
-resource "azurerm_subnet_route_table_association" "snet_rt" {
+resource "azurerm_subnet_route_table_association" "rt" {
   for_each = var.subnets
 
   subnet_id      = azurerm_subnet.subnets[each.key].id
