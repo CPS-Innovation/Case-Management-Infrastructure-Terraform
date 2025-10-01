@@ -33,7 +33,7 @@ resource "azurerm_linux_web_app" "app" {
   }, var.app_settings)
 
   sticky_settings {
-    app_setting_names = keys(var.slot_settings)
+    app_setting_names = var.slot_settings == {} ? [] : keys(var.slot_settings)
   }
 
   logs {

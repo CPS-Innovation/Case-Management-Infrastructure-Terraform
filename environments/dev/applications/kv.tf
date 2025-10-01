@@ -10,5 +10,5 @@ module "kv" {
   tenant_id = data.azurerm_client_config.current.tenant_id
 
   pe_subnet_id         = local.pe_subnet_id
-  private_dns_zone_ids = data.azurerm_private_dns_zone.dns["vault"].id
+  private_dns_zone_ids = [data.azurerm_private_dns_zone.dns["vault"].id]
 }

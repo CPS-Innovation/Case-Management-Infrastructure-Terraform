@@ -35,7 +35,7 @@ resource "azurerm_windows_function_app" "fa" {
   app_settings = var.app_settings
 
   sticky_settings {
-    app_setting_names = keys(var.slot_settings)
+    app_setting_names = var.slot_settings == {} ? [] : keys(var.slot_settings)
   }
 
   identity {
