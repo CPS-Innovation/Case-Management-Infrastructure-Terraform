@@ -1,5 +1,5 @@
 module "asp_linux" {
-  source = "../../../modules/app-service-plan.tf"
+  source = "../../../modules/app-service-plan"
 
   environment     = var.environment
   project_acronym = var.project_acronym
@@ -12,7 +12,7 @@ module "asp_linux" {
 }
 
 module "asp_windows" {
-  source = "../../../modules/app-service-plan.tf"
+  source = "../../../modules/app-service-plan"
 
   environment     = var.environment
   project_acronym = var.project_acronym
