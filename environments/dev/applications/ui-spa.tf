@@ -16,9 +16,5 @@ module "ui_spa" {
   always_on            = false
 
   pe_subnet_id         = local.pe_subnet_id
-<<<<<<< HEAD
   private_dns_zone_ids = [data.azurerm_private_dns_zone.dns["sites"].id]
-=======
-  private_dns_zone_ids = data.azurerm_private_dns_zone.dns["sites"].id
->>>>>>> aa3af42 (add app layer)
 }
