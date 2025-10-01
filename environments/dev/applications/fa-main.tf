@@ -22,7 +22,7 @@ module "fa_main" {
     "Storage Table Data Contributor"
   ]
 
-  kv_id = module.kv.kv_name
+  kv_id = module.kv.kv_id
 
   cors_allowed_origins = [
     "https://${module.ui_spa.default_hostname}",

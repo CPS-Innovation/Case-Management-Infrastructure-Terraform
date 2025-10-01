@@ -131,3 +131,11 @@ variable "slot_settings" {
   description = "A map of key-value pairs for slot-specific App Settings and custom values."
   default     = {}
 }
+
+variable "sticky_settings" {
+  type = map(object({
+    app_setting_names       = optional(list(string))
+    connection_string_names = optional(list(string))
+  }))
+  default = {}
+}
