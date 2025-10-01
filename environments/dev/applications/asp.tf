@@ -1,9 +1,5 @@
 module "asp_linux" {
-<<<<<<< HEAD
   source = "../../../modules/app-service-plan"
-=======
-  source = "../../../modules/app-service-plan.tf"
->>>>>>> aa3af42 (add app layer)
 
   environment     = var.environment
   project_acronym = var.project_acronym
@@ -16,11 +12,7 @@ module "asp_linux" {
 }
 
 module "asp_windows" {
-<<<<<<< HEAD
   source = "../../../modules/app-service-plan"
-=======
-  source = "../../../modules/app-service-plan.tf"
->>>>>>> aa3af42 (add app layer)
 
   environment     = var.environment
   project_acronym = var.project_acronym
@@ -29,5 +21,5 @@ module "asp_windows" {
   rg_name         = module.rg.rg_name
 
   os_type = "windows"
-  sku     = "B2" # ???
+  sku     = "B2"
 }
