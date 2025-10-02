@@ -23,38 +23,14 @@ variable "location" {
   description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
 }
 
-variable "create_asp" {
-  type        = bool
-  description = "Determines whether a new App Service Plan needs creating for the function app."
-}
-
-variable "asp_sku" {
-  type        = string
-  description = "The SKU of the App Service Plan."
-  default     = null
-}
-
-variable "asp_max_elastic_worker_count" {
-  type        = number
-  description = "The maximum number of workers that can be used when scaling out the apps on the service plan"
-  default     = null
-}
-
-variable "asp_worker_count" {
-  type        = number
-  description = "The number of instances running each app on the service plan. Must be a multiple of availability zones in the region"
-  default     = 1
-}
-
-variable "asp_zone_balancing_enabled" {
-  type        = bool
-  description = "Determines if zone balancing is enabled for the app service plan."
-  default     = false
-}
-
 variable "functional_area" {
   type        = string
   description = "The functional area / subsystem / workload of the function app. E.g 'api'."
+}
+
+variable "asp_id" {
+  type        = string
+  description = "The resource id of an existing App Service Plan within which the function app runs."
 }
 
 variable "fa_elastic_instance_minimum" {
@@ -107,13 +83,6 @@ variable "kv_id" {
   description = "The resource id of the key vault holding the app's sensitive variable values."
 }
 
-variable "asp_id" {
-  type        = string
-  description = "The resource id of an existing App Service Plan within which the function app runs. Must be specified when var.create_asp = false."
-  # nullable    = true
-  default = null
-}
-
 variable "vnet_subnet_id" {
   type        = string
   description = "The resource id of the subnet through which the function app is integrated into the VNet."
@@ -161,4 +130,12 @@ variable "slot_settings" {
   type        = map(any)
   description = "A map of key-value pairs for slot-specific App Settings and custom values."
   default     = {}
+}
+
+variable "sticky_settings" {
+  type = map(object({
+    app_setting_names       = optional(list(string))
+    connection_string_names = optional(list(string))
+  }))
+  default = {}
 }

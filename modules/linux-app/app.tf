@@ -4,11 +4,12 @@ resource "azurerm_linux_web_app" "app" {
   #checkov:skip=CKV_AZURE_88:Ensure that app services use Azure Files
   #checkov:skip=CKV_AZURE_66:Ensure that App service enables failed request tracing
   #checkov:skip=CKV_AZURE_17:Ensure the web app has 'Client Certificates (Incoming client certificates)' set
+  #checkov:skip=CKV_AZURE_214:Ensure App Service is set to be always on
 
   name                          = "${var.project_acronym}-app-${var.functional_area}-${var.environment}"
   resource_group_name           = var.rg_name
   location                      = var.location
-  service_plan_id               = var.create_asp ? azurerm_service_plan.asp[0].id : var.asp_id
+  service_plan_id               = var.asp_id
   virtual_network_subnet_id     = var.vnet_subnet_id
   public_network_access_enabled = false
   https_only                    = true
@@ -32,8 +33,13 @@ resource "azurerm_linux_web_app" "app" {
     APPLICATIONINSIGHTS_CONNECTION_STRING = var.ai_connection_string
   }, var.app_settings)
 
-  sticky_settings {
-    app_setting_names = keys(var.slot_settings)
+  dynamic "sticky_settings" {
+    for_each = var.sticky_settings
+
+    content {
+      app_setting_names       = sticky_settings.value.app_setting_names
+      connection_string_names = sticky_settings.value.connection_string_names
+    }
   }
 
   logs {

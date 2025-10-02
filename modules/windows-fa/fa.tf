@@ -4,7 +4,7 @@ resource "azurerm_windows_function_app" "fa" {
   location                      = var.location
   storage_account_name          = var.sa_name
   storage_uses_managed_identity = true
-  service_plan_id               = var.create_asp ? azurerm_service_plan.asp[0].id : var.asp_id
+  service_plan_id               = var.asp_id
   virtual_network_subnet_id     = var.vnet_subnet_id
   public_network_access_enabled = false
   builtin_logging_enabled       = false
@@ -34,8 +34,13 @@ resource "azurerm_windows_function_app" "fa" {
 
   app_settings = var.app_settings
 
-  sticky_settings {
-    app_setting_names = keys(var.slot_settings)
+  dynamic "sticky_settings" {
+    for_each = var.sticky_settings
+
+    content {
+      app_setting_names       = sticky_settings.value.app_setting_names
+      connection_string_names = sticky_settings.value.connection_string_names
+    }
   }
 
   identity {
