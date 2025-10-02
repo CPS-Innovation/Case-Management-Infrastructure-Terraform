@@ -10,7 +10,7 @@ module "fa_main" {
   create_slot = false
 
   asp_id               = module.asp_windows.id
-  functional_area      = "main-api"
+  functional_area      = "api"
   vnet_subnet_id       = data.azurerm_subnet.base["subnet-${var.project_acronym}-windows-apps-${var.environment}"].id
   ai_connection_string = module.ai.ai_connection_string
   always_on            = false

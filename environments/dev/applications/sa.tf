@@ -6,6 +6,7 @@ module "fa_sa" {
   location        = var.location
   tags            = local.tags
   rg_name         = module.rg.rg_name
+  functional_area = "api"
 
   pe_subnet_id = local.pe_subnet_id
   private_endpoints = {
