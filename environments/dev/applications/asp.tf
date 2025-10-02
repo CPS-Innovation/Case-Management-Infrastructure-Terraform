@@ -21,5 +21,5 @@ module "asp_windows" {
   rg_name         = module.rg.rg_name
 
   os_type = "windows"
-  sku     = "B2" # ???
+  sku     = "B2"
 }
