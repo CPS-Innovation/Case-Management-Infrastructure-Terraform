@@ -58,7 +58,8 @@ resource "azurerm_linux_web_app" "app" {
 
   lifecycle {
     ignore_changes = [
-      tags
+      tags,
+      site_config[0].app_command_line
     ]
   }
 }
