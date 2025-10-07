@@ -13,14 +13,14 @@ locals {
     sa = {
       scope = module.fa_sa.id
       role_definitions = [
-        "Storage Blob Data contributor",
-        "Storage Queue Data contributor",
-        "Storage Table Data contributor"
+        "Storage Blob Data Contributor",
+        "Storage Queue Data Contributor",
+        "Storage Table Data Contributor"
       ]
     }
     kv = {
       scope            = module.kv.id
-      role_definitions = ["Key Vault Secrets User"]
+      role_definitions = ["Key Vault Secrets Officer"]
     }
   }
 
