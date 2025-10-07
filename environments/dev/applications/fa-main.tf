@@ -15,14 +15,14 @@ module "fa_main" {
   ai_connection_string = module.ai.ai_connection_string
   always_on            = false
 
-  sa_name = module.fa_sa.sa_name
-  sa_id   = module.fa_sa.sa_id
+  sa_name = module.fa_sa.name
+  sa_id   = module.fa_sa.id
   sa_iam_roles = [
     "Storage Blob Data Owner",
     "Storage Table Data Contributor"
   ]
 
-  kv_id = module.kv.kv_id
+  kv_id = module.kv.id
 
   cors_allowed_origins = [
     "https://${module.ui_spa.default_hostname}",
