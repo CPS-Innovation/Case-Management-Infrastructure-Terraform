@@ -35,7 +35,7 @@ variable "asp_id" {
 
 variable "fa_elastic_instance_minimum" {
   type        = number
-  description = "he number of minimum instances for this Function App. Only affects apps on Elastic Premium plans."
+  description = "The number of minimum instances for this Function App. Only affects apps on Elastic Premium plans."
   default     = null
 }
 
