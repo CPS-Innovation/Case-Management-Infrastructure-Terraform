@@ -1,18 +1,18 @@
-# ---
-# trigger:
-#   branches:
-#     include:
-#     - 'main'
-#   paths:
-#     include:
-#     - environments/staging
-#     - modules
+---
+trigger:
+  branches:
+    include:
+    - 'main'
+  paths:
+    include:
+    - environments/staging
+    - modules
 
-# pr: none
+pr: none
 
-# pool: 'CM PreProd Pool'
+pool: 'CM PreProd Pool'
 
-# jobs:
+jobs:
 #   - template: templates/terragrunt_apply.yml
 #     parameters:
 #       environment: staging
@@ -22,11 +22,11 @@
 #       backend_storage_account_name: "sacmtfstatestaging"
 #       application_name: "applications"
 
-#   - template: templates/terragrunt_apply.yml
-#     parameters:
-#       environment: staging
-#       module: base
-#       subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
-#       backend_storage_resource_group: "rg-cm-devops-preprod"
-#       backend_storage_account_name: "sacmtfstatestaging"
-#       application_name: "base"
+  - template: templates/terragrunt_apply.yml
+    parameters:
+      environment: staging
+      module: base
+      subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
+      backend_storage_resource_group: "rg-cm-devops-preprod"
+      backend_storage_account_name: "sacmtfstatestaging"
+      application_name: "base"

@@ -51,7 +51,8 @@ resource "azurerm_windows_function_app" "fa" {
 
   lifecycle {
     ignore_changes = [
-      tags
+      tags,
+      app_settings
     ]
   }
 }
