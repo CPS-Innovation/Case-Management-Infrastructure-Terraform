@@ -9,6 +9,7 @@ module "network" {
   location         = "UKSouth"
   route_table_id   = data.azurerm_route_table.rt.id
 
+  connect_vnet_to_custom_dns_servers = true
   private_dns_zones = {
     sites = "privatelink.azurewebsites.net"
     vault = "privatelink.vaultcore.azure.net"

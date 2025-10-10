@@ -1,3 +1,9 @@
+resource "azurerm_virtual_network_dns_servers" "dns" {
+  count              = var.connect_vnet_to_custom_dns_servers ? 1 : 0
+  virtual_network_id = var.vnet_id
+  dns_servers        = ["10.8.0.6", "10.8.0.7"]
+}
+
 resource "azurerm_private_dns_zone" "dns" {
   for_each            = var.private_dns_zones
   name                = each.value

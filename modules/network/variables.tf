@@ -4,6 +4,12 @@ variable "private_dns_zones" {
   default     = {}
 }
 
+variable "connect_vnet_to_custom_dns_servers" {
+  type        = bool
+  description = "Do the cps dns servers need connecting to the VNet? Only needed for a new subscription."
+  default     = false
+}
+
 # Subnet
 variable "vnet_rg" {
   type        = string
