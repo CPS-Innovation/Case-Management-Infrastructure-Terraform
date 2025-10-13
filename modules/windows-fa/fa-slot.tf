@@ -10,7 +10,26 @@ resource "azurerm_windows_function_app_slot" "fa_slot" {
   builtin_logging_enabled       = false
   https_only                    = true
 
-  site_config {}
+  site_config {
+    application_insights_connection_string = var.ai_connection_string
+    always_on                              = var.always_on
+    http2_enabled                          = true
+    vnet_route_all_enabled                 = true
+    ftps_state                             = "FtpsOnly"
+    elastic_instance_minimum               = var.fa_elastic_instance_minimum
+    worker_count                           = var.fa_worker_count
+    app_scale_limit                        = var.app_scale_limit
+
+    application_stack {
+      dotnet_version              = var.dotnet_version
+      use_dotnet_isolated_runtime = true
+    }
+
+    cors {
+      allowed_origins     = var.cors_allowed_origins
+      support_credentials = true
+    }
+  }
 
   identity {
     type = "SystemAssigned"

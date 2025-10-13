@@ -7,13 +7,23 @@ resource "azurerm_linux_web_app_slot" "app_slot" {
   https_only                    = true
 
   site_config {
+    app_command_line        = var.app_command_line
+    always_on               = var.always_on
+    http2_enabled           = true
+    vnet_route_all_enabled  = true
+    ftps_state              = "FtpsOnly"
+    minimum_tls_version     = "1.2"
+    scm_minimum_tls_version = "1.2"
+    managed_pipeline_mode   = "Integrated"
   }
 
   identity {
     type = "SystemAssigned"
   }
 
-  app_settings = var.slot_settings
+  app_settings = merge({
+    APPLICATIONINSIGHTS_CONNECTION_STRING = var.ai_connection_string
+  }, var.slot_settings)
 
   logs {
     detailed_error_messages = true
