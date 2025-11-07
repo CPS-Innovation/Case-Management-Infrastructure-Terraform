@@ -19,6 +19,7 @@ jobs:
       environment: staging
       module: applications
       subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
+      variableGroupName: 'cm-infra-vars-staging'
 
   - template: templates/terragrunt_job.yml
     parameters:
