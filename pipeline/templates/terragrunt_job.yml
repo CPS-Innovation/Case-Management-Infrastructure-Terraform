@@ -56,6 +56,7 @@ jobs:
             echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
             echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
             echo "##vso[task.setvariable variable=ARM_OIDC_TOKEN]$idToken"
+            echo "##vso[task.setvariable variable=ARM_USE_OIDC]true"
 
       - bash: |
           # Ensure jq
@@ -106,8 +107,6 @@ jobs:
           fi
         displayName: "!!!! ${{parameters.environment}} Plan ${{parameters.module}} !!!!"
         workingDirectory: $(System.DefaultWorkingDirectory)/environments/${{parameters.environment}}/${{parameters.module}}
-        env:
-          ARM_USE_OIDC: true
 
       - bash: |
           PLAN_PATH='$(moduleDir)/tf.plan'
