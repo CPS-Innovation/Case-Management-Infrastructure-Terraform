@@ -52,7 +52,8 @@ resource "azurerm_windows_function_app" "fa" {
   lifecycle {
     ignore_changes = [
       tags,
-      app_settings
+      app_settings,
+      site_config[0].cors[0].allowed_origins
     ]
   }
 }
