@@ -118,5 +118,6 @@ jobs:
 
       - bash: |
           rm -f vars.json terraform.tfvars.json
+        condition:  ${{ ne(parameters.variableGroupName, '') }}
         displayName: "Delete sensitive variable files"
         workingDirectory: $(moduleDir)

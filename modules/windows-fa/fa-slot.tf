@@ -42,7 +42,8 @@ resource "azurerm_windows_function_app_slot" "fa_slot" {
   lifecycle {
     ignore_changes = [
       tags,
-      site_config
+      site_config,
+      app_settings
     ]
   }
 }
