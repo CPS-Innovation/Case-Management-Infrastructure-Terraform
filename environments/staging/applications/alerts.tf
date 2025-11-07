@@ -81,9 +81,12 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "api_5xx" {
 
   tags = local.tags
 }
+<<<<<<< HEAD
 
 resource "azurerm_role_assignment" "ai" {
   scope                = module.ai.ai_id
   role_definition_name = "Reader"
   principal_id         = azurerm_monitor_scheduled_query_rules_alert_v2.api_5xx.identity[0].principal_id
 }
+=======
+>>>>>>> c5336fa (add alert for 5xx failures in fa-main)
