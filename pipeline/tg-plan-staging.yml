@@ -14,20 +14,15 @@ pr: none
 pool: 'CM PreProd Pool'
 
 jobs:
-  - template: templates/terragrunt_plan.yml
+  - template: templates/terragrunt_job.yml
     parameters:
       environment: staging
       module: applications
       subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
-      backend_storage_resource_group: "rg-cm-devops-preprod"
-      backend_storage_account_name: "sacmtfstatestaging"
-      application_name: "applications"
+      variableGroupName: 'cm-infra-vars-staging'
 
-  - template: templates/terragrunt_plan.yml
+  - template: templates/terragrunt_job.yml
     parameters:
       environment: staging
       module: base
       subscription: "Azure Pipeline: Case Management - Pre-Prod" #service principal
-      backend_storage_resource_group: "rg-cm-devops-preprod"
-      backend_storage_account_name: "sacmtfstatestaging"
-      application_name: "base"

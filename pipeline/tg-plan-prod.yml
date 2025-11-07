@@ -13,20 +13,14 @@
 # pool: 'CM Prod Pool'
 
 # jobs:
-#   - template: templates/terragrunt_plan.yml
+#   - template: templates/terragrunt_job.yml
 #     parameters:
 #       environment: prod
 #       module: applications
 #       subscription: "Azure Pipeline: Case Management - Prod" #service principal
-#       backend_storage_resource_group: "rg-cm-devops-prod"
-#       backend_storage_account_name: "sacmtfstateprod"
-#       application_name: "applications"
 
-#   - template: templates/terragrunt_plan.yml
+#   - template: templates/terragrunt_job.yml
 #     parameters:
 #       environment: prod
 #       module: base
 #       subscription: "Azure Pipeline: Case Management - Prod" #service principal
-#       backend_storage_resource_group: "rg-cm-devops-prod"
-#       backend_storage_account_name: "sacmtfstateprod"
-#       application_name: "base"
