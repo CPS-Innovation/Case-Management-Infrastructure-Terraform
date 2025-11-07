@@ -55,6 +55,7 @@ jobs:
             echo "##vso[task.setvariable variable=ARM_SUBSCRIPTION_ID]$(az account show --query id --output tsv)"
             echo "##vso[task.setvariable variable=ARM_USE_OIDC]true
             echo "##vso[task.setvariable variable=ARM_TENANT_ID]$tenantId"
+            echo "##vso[task.setvariable variable=ARM_CLIENT_ID]$servicePrincipalId"
 
       - bash: |
           # Ensure jq
@@ -94,7 +95,7 @@ jobs:
         env:
           AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 
-      - bash |
+      - bash: |
           PLAN_PATH='$(moduleDir)/tf.plan'
 
           (terragrunt plan -out $PLAN_PATH --detailed-exitcode) || error_code=$?
@@ -103,6 +104,8 @@ jobs:
           elif [[ "${error_code}" -eq 2 ]]; then
             echo "##vso[task.logissue type=warning]Plan '${{parameters.module}}' has changes on ${{parameters.environment}}"
           fi
+        displayName: "!!!! ${{parameters.environment}} Plan ${{parameters.module}} !!!!"
+        workingDirectory: $(System.DefaultWorkingDirectory)/environments/${{parameters.environment}}/${{parameters.module}}
 
       - bash: |
           PLAN_PATH='$(moduleDir)/tf.plan'
