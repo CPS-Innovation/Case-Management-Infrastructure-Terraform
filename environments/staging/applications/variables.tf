@@ -22,3 +22,9 @@ variable "vnet_rg" {
   type        = string
   description = "The name of the virtual network in which to create the subnet"
 }
+
+variable "dev_team_email" {
+  type        = string
+  description = "The DL email address of the project's dev team."
+  sensitive   = true
+}

@@ -5,3 +5,7 @@ output "fa_id" {
 output "fa_slot_id" {
   value = var.create_slot ? azurerm_windows_function_app_slot.fa_slot[0].id : null
 }
+
+output "fa_name" {
+  value = azurerm_windows_function_app.fa.name
+}
