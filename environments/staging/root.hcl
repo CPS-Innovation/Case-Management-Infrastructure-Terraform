@@ -12,5 +12,6 @@ remote_state {
     resource_group_name  = "rg-cm-devops-preprod"
     storage_account_name = "sacmtfstatestaging"
     container_name       = "tfstate"
+    use_oidc             = true
   }
 }
