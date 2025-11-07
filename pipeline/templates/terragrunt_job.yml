@@ -58,7 +58,6 @@ jobs:
             echo "##vso[task.setvariable variable=ARM_OIDC_TOKEN]$idToken"
             echo "##vso[task.setvariable variable=ARM_USE_OIDC]true"
 
-
       - bash: |
           # Ensure jq
           if ! command -v jq &> /dev/null; then
@@ -97,7 +96,15 @@ jobs:
         env:
           AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
 
-      - task: AzureCLI@2
+      - bash: |
+          PLAN_PATH='$(moduleDir)/tf.plan'
+
+          (terragrunt plan -out $PLAN_PATH --detailed-exitcode) || error_code=$?
+          if [[ "${error_code}" -eq 1 ]]; then
+            exit 1
+          elif [[ "${error_code}" -eq 2 ]]; then
+            echo "##vso[task.logissue type=warning]Plan '${{parameters.module}}' has changes on ${{parameters.environment}}"
+          fi
         displayName: "!!!! ${{parameters.environment}} Plan ${{parameters.module}} !!!!"
         workingDirectory: $(System.DefaultWorkingDirectory)/environments/${{parameters.environment}}/${{parameters.module}}
 
