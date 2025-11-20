@@ -128,7 +128,7 @@ variable "slot_name" {
 
 variable "slot_settings" {
   type        = map(any)
-  description = "A map of key-value pairs for slot-specific App Settings and custom values."
+  description = "A map of key-value pairs for slot-specific app_settings and custom values."
   default     = {}
 }
 
@@ -137,5 +137,24 @@ variable "sticky_settings" {
     app_setting_names       = optional(list(string))
     connection_string_names = optional(list(string))
   }))
-  default = {}
+  description = "Lists of app_setting and connection_string names that the function app will not swap between slots when a swap operation is triggered."
+  default     = {}
+}
+
+variable "health_check_path" {
+  type        = string
+  description = "The health or status endpoint to hit as the pulse check for the app's nodes. Must begin with a '/'. E.g '/api/status'."
+  default     = null
+  nullable    = true
+  validation {
+    condition     = var.health_check_path == null || startswith(var.health_check_path, "/")
+    error_message = "Unless null, health check path must begin with a '/'."
+  }
+}
+
+variable "health_check_eviction_time_mins" {
+  type        = number
+  description = "The amount of time in minutes that a node can be unhealthy before being removed from the load balancer. Possible values are between 2 and 10. Only valid in conjunction with health_check_path."
+  default     = null
+  nullable    = true
 }

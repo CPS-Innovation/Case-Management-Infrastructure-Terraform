@@ -33,4 +33,6 @@ module "fa_main" {
   pe_subnet_id         = local.pe_subnet_id
   private_dns_zone_ids = [data.azurerm_private_dns_zone.dns["sites"].id]
 
+  health_check_path               = "/api/status"
+  health_check_eviction_time_mins = 10
 }

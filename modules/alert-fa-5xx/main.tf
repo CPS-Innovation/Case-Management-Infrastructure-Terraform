@@ -68,7 +68,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
 
   auto_mitigation_enabled          = var.auto_mitigation_enabled
   workspace_alerts_storage_enabled = false
-  description                      = "Notify stakeholders of 5xx errors from ${var.fa_name}}"
+  description                      = "Notify stakeholders of 5xx errors in ${var.fa_name}."
   enabled                          = true
 
   action {
