@@ -147,7 +147,7 @@ variable "health_check_path" {
   default     = null
   nullable    = true
   validation {
-    condition     = var.health_check_path == null || startswith(var.health_check_path, "/")
+    condition     = var.health_check_path == null ? true : startswith(var.health_check_path, "/")
     error_message = "Unless null, health check path must begin with a '/'."
   }
 }

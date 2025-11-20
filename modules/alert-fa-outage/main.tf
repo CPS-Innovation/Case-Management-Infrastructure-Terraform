@@ -11,9 +11,9 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
   criteria {
     query                   = <<-QUERY
       requests
-      | where name == ${var.health_check_request_method}
+      | where name == "${var.health_check_request_method}"
       | where timestamp > ago(3m)
-      | where cloud_RoleName has ${var.fa_name}
+      | where cloud_RoleName has "${var.fa_name}"
       | summarize latestSuccessStatus = arg_max(timestamp, success) by cloud_RoleInstance
       | summarize
           rows = count(),
