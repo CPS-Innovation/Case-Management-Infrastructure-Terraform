@@ -31,7 +31,7 @@ variable "functional_area" {
 variable "evaluation_frequency" {
   type        = string
   description = "How often the scheduled query rule is evaluated, represented in ISO 8601 duration format."
-  default     = "PT5M"
+  default     = "PT1M"
   validation {
     condition     = contains(["PT1M", "PT5M", "PT10M"], var.evaluation_frequency)
     error_message = "Evaluation frequency must be one of: PT1M, PT5M or PT10M."
@@ -56,7 +56,7 @@ variable "app_insights_id" {
 variable "severity" {
   type        = number
   description = "The severity level to assign to the alert. Should be an integer between 0 and 4. Value of 0 is severest."
-  default     = 2
+  default     = 0
 }
 
 variable "auto_mitigation_enabled" {
@@ -72,5 +72,10 @@ variable "action_group_ids" {
 
 variable "fa_name" {
   type        = string
-  description = "The name of the function app the alert rule is monitoring. Used for the alert's description."
+  description = "The name of the function app resource the alert rule is monitoring."
+}
+
+variable "health_check_request_method" {
+  type        = string
+  description = "The method used by the app service health check to monitor app node health."
 }
