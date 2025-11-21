@@ -7,7 +7,7 @@ resource "azurerm_monitor_metric_alert" "alert" {
 
   criteria {
     metric_namespace = "Microsoft.Web/sites"
-    metric_name      = "Http 2xx"
+    metric_name      = "Http2xx"
     aggregation      = "Minimum"
     operator         = "LessThan"
     threshold        = 1
