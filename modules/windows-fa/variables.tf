@@ -54,7 +54,7 @@ variable "app_scale_limit" {
 variable "dotnet_version" {
   type        = string
   description = "The version of .NET to use."
-  default     = "v8.0"
+  default     = "v10.0"
 }
 
 variable "app_settings" {
