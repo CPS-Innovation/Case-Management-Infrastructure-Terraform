@@ -21,7 +21,7 @@ module "asp_ui" {
   project_acronym = var.project_acronym
   location        = var.location
   tags            = local.tags
-  rg_name         = module.rg_asp_ui.rg_name
+  rg_name         = module.rg.rg_name
   functional_area = "ui"
 
   os_type                = "linux"

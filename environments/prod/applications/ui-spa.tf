@@ -10,7 +10,7 @@ module "ui_spa" {
   create_slot = true
   slot_name   = "stg"
 
-  asp_id               = module.asp_linux.id
+  asp_id               = module.asp_ui.id
   functional_area      = "ui-spa"
   vnet_subnet_id       = data.azurerm_subnet.base["subnet-${var.project_acronym}-linux-apps-${var.environment}"].id
   ai_connection_string = module.ai.ai_connection_string
