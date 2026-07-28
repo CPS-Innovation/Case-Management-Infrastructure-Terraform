@@ -6,7 +6,7 @@ module "kv" {
   location        = var.location
   tags            = local.tags
   rg_name         = module.rg.rg_name
-  functional_area = "-api"
+  functional_area = "api"
 
   tenant_id                  = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days = var.kv_soft_delete_retention_days
