@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "kv" {
-  name                        = "kv-${var.project_acronym}${var.functional_area}-${var.environment}"
+  name                        = "kv-${var.project_acronym}${local.qualifier}-${var.environment}"
   location                    = var.location
   resource_group_name         = var.rg_name
   enabled_for_disk_encryption = true
@@ -18,4 +18,8 @@ resource "azurerm_key_vault" "kv" {
   }
 
   tags = var.tags
+}
+
+locals {
+  qualifier = var.functional_area == null ? "" : "-${var.functional_area}"
 }

@@ -20,10 +20,6 @@ variable "location" {
 
 variable "functional_area" {
   type        = string
-  description = "The functional area / subsystem / workload for which the RG is created. Unless left as the default empty string, it must be prefixed with a hyphen. E.g '-backend'."
-  default     = ""
-  validation {
-    condition     = var.functional_area == "" || startswith(var.functional_area, "-")
-    error_message = "The value for var.functional_area must be prefixed with a hyphen (-), unless it is left as the default empty string."
-  }
+  description = "The functional area / subsystem / workload for which the RG is created. E.g. 'backend'."
+  default     = null
 }
