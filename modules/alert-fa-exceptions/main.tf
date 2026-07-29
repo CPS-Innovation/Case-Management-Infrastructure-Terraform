@@ -1,5 +1,5 @@
 resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
-  name                = "alert-${var.project_acronym}-${var.functional_area}-5xx-${var.environment}"
+  name                = "alert-${var.project_acronym}-${var.functional_area}-exceptions-${var.environment}"
   resource_group_name = var.rg_name
   location            = var.location
 
@@ -68,7 +68,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
 
   auto_mitigation_enabled          = var.auto_mitigation_enabled
   workspace_alerts_storage_enabled = false
-  description                      = "Notify stakeholders of 5xx errors in ${var.fa_name}."
+  description                      = "Notify stakeholders of exceptions in ${var.fa_name}."
   enabled                          = true
 
   action {

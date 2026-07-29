@@ -1,5 +1,5 @@
-module "alert_api_5xx" {
-  source = "../../../modules/alert-fa-5xx"
+module "alert_api_exceptions" {
+  source = "../../../modules/alert-fa-exceptions"
 
   environment     = var.environment
   project_acronym = var.project_acronym
