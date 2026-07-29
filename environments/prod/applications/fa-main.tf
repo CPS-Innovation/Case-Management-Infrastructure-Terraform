@@ -25,10 +25,10 @@ module "fa_main" {
 
   kv_id = module.kv.id
 
-  # cors_allowed_origins = [
-  #   "https://${module.ui_spa.default_hostname}",
-  #   "https://${module.ui_hostname.hostname}"
-  # ]
+  cors_allowed_origins = [
+    "https://${module.ui_spa.default_hostname}",
+    "https://${module.ui_hostname.hostname}"
+  ]
 
   pe_subnet_id         = local.pe_subnet_id
   private_dns_zone_ids = [data.azurerm_private_dns_zone.dns["sites"].id]
