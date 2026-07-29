@@ -50,7 +50,7 @@ resource "azurerm_monitor_metric_alert" "server_failure_rate" {
 
 
 resource "azurerm_monitor_metric_alert" "response_time" {
-  name                = "alert-lacc-ui-response-time-${var.environment}"
+  name                = "alert-${var.project_acronym}-ui-response-time-${var.environment}"
   resource_group_name = var.rg_name
   description         = "A spike in response time from ${var.app_name}."
   scopes              = [var.app_id]
