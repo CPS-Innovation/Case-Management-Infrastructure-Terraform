@@ -12,5 +12,6 @@ remote_state {
     resource_group_name  = "rg-cmrc-devops-prod"
     storage_account_name = "sacmrctfstateprod"
     container_name       = "tfstate"
+    use_azuread_auth     = true
   }
 }
