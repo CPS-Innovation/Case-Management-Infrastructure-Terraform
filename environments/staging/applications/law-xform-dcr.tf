@@ -6,9 +6,11 @@ module "law_xform_dcr" {
   location        = var.location
   tags            = local.tags
   rg_name         = module.rg.rg_name
-  rg_id           = module.rg.rg_id
+  # rg_id           = module.rg.rg_id
 
-  law_name = "log-analytics-${var.project_acronym}-${var.environment}"
+  # law_name = "log-analytics-${var.project_acronym}-${var.environment}"
+  law_id   = module.ai.law_id
+  law_name = module.ai.law_name
 
   data_flows = {
     requests = {

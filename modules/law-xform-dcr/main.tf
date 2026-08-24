@@ -6,7 +6,8 @@ resource "azurerm_monitor_data_collection_rule" "law_xform_dcr" {
 
   destinations {
     log_analytics {
-      workspace_resource_id = "${var.rg_id}/providers/Microsoft.OperationalInsights/workspaces/${var.law_name}"
+      # workspace_resource_id = "${var.rg_id}/providers/Microsoft.OperationalInsights/workspaces/${var.law_name}"
+      workspace_resource_id = var.law_id
       name                  = var.law_name
     }
   }
@@ -21,4 +22,11 @@ resource "azurerm_monitor_data_collection_rule" "law_xform_dcr" {
   }
 
   tags = var.tags
+}
+
+resource "azurerm_monitor_data_collection_rule_association" "example1" {
+  name                    = "law-dcr-association-${var.project_acronym}-${var.environment}"
+  target_resource_id      = var.law_id
+  data_collection_rule_id = azurerm_monitor_data_collection_rule.law_xform_dcr.id
+  description             = "example"
 }
