@@ -28,15 +28,10 @@ variable "law_name" {
   description = "The name of the Log Analytics Workspace to which this DCR applies."
 }
 
-variable "law_id" {
+variable "rg_id" {
   type        = string
-  description = "The resource ID of the Log Analytics Workspace to which this DCR applies."
+  description = "The ID of the resource group of the Log Analytics Workspace and DCR."
 }
-
-# variable "rg_id" {
-#   type        = string
-#   description = "The ID of the resource group of the Log Analytics Workspace and DCR."
-# }
 
 variable "data_flows" {
   type = map(object({
