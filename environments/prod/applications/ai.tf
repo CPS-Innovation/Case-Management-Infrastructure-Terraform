@@ -7,4 +7,5 @@ module "ai" {
   tags                  = local.tags
   rg_name               = module.rg.rg_name
   log_retention_in_days = var.log_retention_in_days
+  dcr_id                = module.law_xform_dcr.dcr_id
 }
