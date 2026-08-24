@@ -7,6 +7,7 @@ resource "azurerm_log_analytics_workspace" "law" {
   internet_ingestion_enabled   = false
   internet_query_enabled       = false
   local_authentication_enabled = false
+  data_collection_rule_id      = var.dcr_id
 
   tags = var.tags
 }

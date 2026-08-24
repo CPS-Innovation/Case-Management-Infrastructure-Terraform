@@ -27,3 +27,9 @@ variable "log_retention_in_days" {
   type        = number
   description = "The workspace data retention in days."
 }
+
+variable "dcr_id" {
+  type        = string
+  description = "The ID of a transformation DCR to associate with the workspace."
+  default     = null
+}
