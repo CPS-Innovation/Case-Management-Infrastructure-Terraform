@@ -61,8 +61,8 @@ variable "severity" {
 
 variable "auto_mitigation_enabled" {
   type        = bool
-  description = "pecifies the flag that indicates whether the alert should be automatically resolved or not."
-  default     = false
+  description = "Specifies whether the alert should be automatically resolved or not."
+  default     = true
 }
 
 variable "action_group_ids" {
@@ -73,4 +73,10 @@ variable "action_group_ids" {
 variable "fa_name" {
   type        = string
   description = "The name of the function app resource the alert rule is monitoring. Used for the alert's description."
+}
+
+variable "excluded_exceptions" {
+  type        = map(list(string))
+  description = "A map of exceptions table column names to lists of values to exclude from the query results."
+  default     = {}
 }

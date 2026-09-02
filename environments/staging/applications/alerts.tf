@@ -1,4 +1,4 @@
-module "alert_api_5xx" {
+module "alert_api_exceptions" {
   source = "../../../modules/alert-fa-exceptions"
 
   environment     = var.environment
@@ -7,10 +7,11 @@ module "alert_api_5xx" {
   tags            = local.tags
   rg_name         = module.rg.rg_name
 
-  functional_area  = "api"
-  app_insights_id  = module.ai.ai_id
-  action_group_ids = [module.ag_api_alerts.id]
-  fa_name          = module.fa_main.fa_name
+  functional_area     = "api"
+  app_insights_id     = module.ai.ai_id
+  action_group_ids    = [module.ag_api_alerts.id]
+  fa_name             = module.fa_main.fa_name
+  excluded_exceptions = {}
 }
 
 module "alert_api_outage" {
