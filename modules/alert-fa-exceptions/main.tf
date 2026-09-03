@@ -3,7 +3,7 @@ locals {
 
   exclusion_conditions = length(var.excluded_exceptions) != 0 ? join(" or ", [
     for k in keys(var.excluded_exceptions) :
-    "tostring(${k}) in (ExcludedEExceptions.${k})"
+    "tostring(${k}) in (ExcludedExceptions.${k})"
   ]) : "false"
 }
 
