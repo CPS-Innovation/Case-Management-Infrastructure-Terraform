@@ -42,9 +42,6 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
         )
         | summarize
             StackSnippet = strcat_array(make_list(StackFrame, 5), "\r\n"),
-            CrashFunction = tostring(make_list(tostring(Frame.method))[0]),
-            CrashFile = tostring(make_list(tostring(Frame.fileName))[0]),
-            CrashLine = tostring(make_list(tostring(Frame.line))[0]),
             ExUser = any(ExUser)
             by operation_Id, OuterErr, InnerErr, problemId, cloud_RoleName;
         CrashDetails
@@ -56,7 +53,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
                 ExUser
             )
         | summarize
-            Occurrences = count(),
+            Count = count(),
             StackSnippet = any(StackSnippet),
             Users = tostring(make_set(User, 5)),
             Urls = tostring(make_set(url, 5)),
@@ -68,17 +65,15 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
         by
             CloudRole = cloud_RoleName,
             ProblemId = problemId,
-            ExceptionDetails = tostring(bag_pack(
-              "OuterError", OuterErr,
-              "InnerError", InnerErr
-            ))
+            OuterError = OuterErr,
+            InnerError = InnerErr
       KQL
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
     threshold               = 0
 
     dynamic "dimension" {
-      for_each = ["Occurrences", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "ExceptionDetails", "ProblemId", "StackSnippet"]
+      for_each = ["Count", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "OuterError", "InnerError", "ProblemId", "StackSnippet"]
       content {
         name     = dimension.value
         operator = "Include"
