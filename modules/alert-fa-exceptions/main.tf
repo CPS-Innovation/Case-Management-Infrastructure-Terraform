@@ -3,7 +3,7 @@ locals {
 
   exclusion_conditions = length(var.excluded_exceptions) != 0 ? join(" or ", [
     for k in keys(var.excluded_exceptions) :
-    "tostring(${k}) in (ExcludedEExceptions.${k})"
+    "tostring(${k}) in (ExcludedExceptions.${k})"
   ]) : "false"
 }
 
@@ -26,48 +26,59 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
         | extend
             OuterErr = strcat(outerType, ": ", outerMessage),
             InnerErr = strcat(innermostType, ": ", innermostMessage),
-            ExUser   = coalesce(tostring(user_Id),
-                        tostring(user_AuthenticatedId),
-                        tostring(customDimensions.User),
-                        tostring(customDimensions.user),
-                        tostring(customDimensions.UserId))
-        | extend Parsed  = parse_json(details)
-        | mv-expand Parsed
+            ExUser = coalesce(
+                tostring(user_Id),
+                tostring(user_AuthenticatedId),
+                tostring(customDimensions.User),
+                tostring(customDimensions.user),
+                tostring(customDimensions.UserId)
+            )
+        | mv-expand Parsed = parse_json(details)
         | mv-expand Frame = parse_json(tostring(Parsed.parsedStack))
         | extend StackFrame = strcat(
             "  at ", tostring(Frame.method),
             " in ", tostring(Frame.fileName),
-            ":", tostring(Frame.line))
+            ":", tostring(Frame.line)
+        )
         | summarize
-            StackSnippet  = strcat_array(make_list(StackFrame, 5), "\r\n"),
+            StackSnippet = strcat_array(make_list(StackFrame, 5), "\r\n"),
             CrashFunction = tostring(make_list(tostring(Frame.method))[0]),
-            CrashFile     = tostring(make_list(tostring(Frame.fileName))[0]),
-            CrashLine     = tostring(make_list(tostring(Frame.line))[0]),
-            ExUser        = any(ExUser)
-            by operation_Id, OuterErr, InnerErr,
-              problemId, cloud_RoleName;
+            CrashFile = tostring(make_list(tostring(Frame.fileName))[0]),
+            CrashLine = tostring(make_list(tostring(Frame.line))[0]),
+            ExUser = any(ExUser)
+            by operation_Id, OuterErr, InnerErr, problemId, cloud_RoleName;
         CrashDetails
         | join kind=leftouter (requests) on operation_Id
-        | project
-            Timestamp     = tostring(timestamp),
-            CloudRole     = tostring(cloud_RoleName),
-            Url           = url,
-            ResultCode    = resultCode,
-            User          = coalesce(tostring(user_Id),
-                              tostring(user_AuthenticatedId),
-                              ExUser),
-            OuterError    = OuterErr,
-            InnerError    = InnerErr,
-            CrashedAt     = strcat(CrashFunction, " (", CrashFile, ":", CrashLine, ")"),
-            ProblemId     = problemId,
-            StackSnippet  = StackSnippet
+        | extend
+            User = coalesce(
+                tostring(user_Id),
+                tostring(user_AuthenticatedId),
+                ExUser
+            )
+        | summarize
+            Occurrences = count(),
+            StackSnippet = any(StackSnippet),
+            Users = tostring(make_set(User, 5)),
+            Urls = tostring(make_set(url, 5)),
+            ResultCodes = tostring(make_set(resultCode, 5)),
+            Timestamps = tostring(bag_pack(
+             "FirstSeen", min(timestamp),
+             "LastSeen", max(timestamp)
+            ))
+        by
+            CloudRole = cloud_RoleName,
+            ProblemId = problemId,
+            ExceptionDetails = tostring(bag_pack(
+              "OuterError", OuterErr,
+              "InnerError", InnerErr
+            ))
       KQL
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
     threshold               = 0
 
     dynamic "dimension" {
-      for_each = ["Timestamp", "CloudRole", "Url", "ResultCode", "User", "OuterError", "InnerError", "CrashedAt", "ProblemId", "StackSnippet"]
+      for_each = ["Occurrences", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "ExceptionDetails", "ProblemId", "StackSnippet"]
       content {
         name     = dimension.value
         operator = "Include"
