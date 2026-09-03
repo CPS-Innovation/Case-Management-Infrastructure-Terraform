@@ -53,7 +53,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
                 ExUser
             )
         | summarize
-            Occurrences = count(),
+            Count = count(),
             StackSnippet = any(StackSnippet),
             Users = tostring(make_set(User, 5)),
             Urls = tostring(make_set(url, 5)),
@@ -73,7 +73,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
     threshold               = 0
 
     dynamic "dimension" {
-      for_each = ["Occurrences", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "OuterError", "InnerError", "ProblemId", "StackSnippet"]
+      for_each = ["Count", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "OuterError", "InnerError", "ProblemId", "StackSnippet"]
       content {
         name     = dimension.value
         operator = "Include"
