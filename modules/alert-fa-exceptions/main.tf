@@ -39,7 +39,7 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
             "  at ", tostring(Frame.method),
             " in ", tostring(Frame.fileName),
             ":", tostring(Frame.line)
-          )
+        )
         | summarize
             StackSnippet = strcat_array(make_list(StackFrame, 5), "\r\n"),
             ExUser = any(ExUser)
@@ -58,24 +58,22 @@ resource "azurerm_monitor_scheduled_query_rules_alert_v2" "alert" {
             Users = tostring(make_set(User, 5)),
             Urls = tostring(make_set(url, 5)),
             ResultCodes = tostring(make_set(resultCode, 5)),
-            Timestamps = strcat(
-             "FirstSeen: ", min(timestamp), "\r\n"
+            Timestamps = tostring(bag_pack(
+             "FirstSeen", min(timestamp),
              "LastSeen", max(timestamp)
-            )
+            ))
         by
             CloudRole = cloud_RoleName,
             ProblemId = problemId,
-            ErrorDetails = strcat(
-              "OuterError: ", OuterErr, "\r\n",
-              "InnerError: ", InnerErr
-            )
+            OuterError = OuterErr,
+            InnerError = InnerErr
       KQL
     time_aggregation_method = "Count"
     operator                = "GreaterThan"
     threshold               = 0
 
     dynamic "dimension" {
-      for_each = ["Occurrences", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "ErrorDetails", "ProblemId", "StackSnippet"]
+      for_each = ["Occurrences", "Timestamps", "CloudRole", "Urls", "ResultCodes", "Users", "OuterError", "InnerError", "ProblemId", "StackSnippet"]
       content {
         name     = dimension.value
         operator = "Include"
