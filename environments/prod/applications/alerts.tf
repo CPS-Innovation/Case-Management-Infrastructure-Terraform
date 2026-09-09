@@ -28,6 +28,23 @@ module "alert_api_outage" {
   action_group_id = module.ag_api_alerts.id
 }
 
+module "alert_api_5xx_rate" {
+  source = "../../../modules/alert-fa-500-rate"
+
+  environment     = var.environment
+  project_acronym = var.project_acronym
+  location        = var.location
+  tags            = local.tags
+  rg_name         = module.rg.rg_name
+
+  functional_area          = "api"
+  app_insights_id          = module.ai.ai_id
+  action_group_ids         = [module.ag_api_alerts.id]
+  fa_name                  = module.fa_main.fa_name
+  total_requests_threshold = var.alert_api_5xx_total_requests_threshold
+  failure_rate_threshold   = var.alert_api_5xx_failure_rate_threshold
+}
+
 module "alerts_ui_spa" {
   source = "../../../modules/alerts-spa"
 

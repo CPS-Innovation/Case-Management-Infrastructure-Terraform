@@ -108,6 +108,16 @@ variable "siem_evh_subscription_id" {
   sensitive   = true
 }
 
+variable "alert_api_5xx_total_requests_threshold" {
+  type        = number
+  description = "The minimum number of requests that must occur in the evaluation window for the alert to be triggered."
+}
+
+variable "alert_api_5xx_failure_rate_threshold" {
+  type        = number
+  description = "The minimum percentage of requests that must return HTTP 5xx responses in the evaluation window for the alert to be triggered."
+}
+
 variable "alert_ui_5xx_rate_threshold" {
   type        = number
   description = "The number of UI SPA 5xx responses over which an alert should be triggered."
